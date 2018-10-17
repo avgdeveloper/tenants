@@ -1,0 +1,14 @@
+table, th, td {
+   border: 1px solid black;
+}
+table {
+  width:50%;
+}
+
+ #inputName, #sname {
+  display: inline-block;
+  
+}
+select, #inputName {
+  margin-right: 20px;
+}

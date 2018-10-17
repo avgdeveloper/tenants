@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>tenents</title>
+</head>
+
+<body>
+  <h1>list of all tenants</h1>
+  <br><br>
+  <select (change)="filterTenants(sort)" [(ngModel)]="sort" name="filter" id="filter">
+    <option value="">choose tenants</option>
+    <option value="all">All tenants</option>
+    <option value="debts">Tenants thay have debts</option>
+    <option value="noDebts">Tenants thay have not any debts</option>
+  </select>
+  <input (keyup)="searchTenant()" [(ngModel)]="searchName" placeholder="Search by name" type="text" name="name" id="inputName">
+  <br><br><br>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>debts</th>
+        <th></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tenant of tenants">
+        <td> {{ tenant.name }} </td>
+        <td> {{ tenant.phone}} </td>
+        <td> {{ tenant.address}} </td>
+        <td> {{ tenant.debts}} </td>
+        <td><input type="button" (click)="getUpTs(tenant )" value="Update"></td>
+        <td><input type="button" (click)="deleteTenant(tenant._id)" value="Delete"></td>
+      </tr>
+    </tbody>
+  </table>
+  <br><br>
+  <input (click)="addTenants()" value="+ Add new tenants" type="button" id="inputName">
+
+  <div *ngIf="newTs">
+    <h2>Here you can create new tenant Or update tenants</h2>
+    <form #newTs="ngForm" (ngSubmit)="createTenants(newTs)" action="" method="POST">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>debts</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td><input placeholder="Insert Name" type="text" name="name" id="name"></td>
+          <td><input placeholder="Insert Phone" type="text" name="phone" id="phone"></td>
+          <td><input placeholder="Insert Address" type="text" name="address" id="address"></td>
+          <td><input placeholder="Insert Debts" type="text" name="debts" id="debts"></td>
+          <td><input id="create" type="submit" value="Create"></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+
+  <div *ngIf="upTenants">
+    <h2>Here you can update this tenants</h2>
+    <form #upTs="ngForm" (ngSubmit)="updateTs(upTs)" action="" method="POST">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>debts</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td><input value="{{ upTenants.name }}" type="text" name="name" id="name"></td>
+          <td><input value="{{ upTenants.phone }}" type="text" name="phone" id="phone"></td>
+          <td><input value="{{ upTenants.address }}" type="text" name="address" id="address"></td>
+          <td><input value="{{ upTenants.debts }}" type="text" name="debts" id="debts"></td>
+          <td><input type="hidden" value="{{upTenants._id}}" name="_id" id="id"></td>
+          <td><input id="update" type="submit" value="Update"></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</body>
+
+</html>
